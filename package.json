@@ -1,6 +1,6 @@
 {
   "name": "reduce-devtools-extension",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Reducer Developer Tools for debugging application state changes.",
   "source": "src/index.ts",
   "browser": "dist/index.js",
