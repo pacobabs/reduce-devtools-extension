@@ -39,17 +39,19 @@ export const wrapWithDevtools = (reducer: (store: any, action: any) => any): ((s
   }
 }
 
-export const connectDevtools = (
+export const initDevtools = (
+  initialStore: any,
   dispatch: ({ type: string, payload: any }: any) => void,
   options?: any
 ) => {
-  if (devtools) return true
+  if (devtools) return
   const { autoPause = false, shouldStartLocked = false } = options || {}
   devtools = connectViaExtension(options)
-  devtools.init(internalStore)
+  devtools.init(initialStore)
   setTimeout(() => {
-    devtools.send(null, initDevtoolState(internalStore, { autoPause, shouldStartLocked }))
+    devtools.send(null, initDevtoolState(initialStore, { autoPause, shouldStartLocked }))
   }, 100)
+  setInternalStore(initialStore)
   devtools.subscribe((message: any) => {
     if (message.type === 'ACTION') {
       try {
@@ -92,10 +94,10 @@ export const connectDevtools = (
         case 'RESET': {
           dispatch({
             type: '__REDUX_DEVTOOLS_EXTENSION_SET_STATE__',
-            payload: internalStore,
+            payload: initialStore,
             internal: true
           })
-          devtools.send(null, initDevtoolState(internalStore))
+          devtools.send(null, initDevtoolState(initialStore))
           return true
         }
         case 'COMMIT': {

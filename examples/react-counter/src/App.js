@@ -1,23 +1,19 @@
-import React, { createContext, useContext, useReducer } from 'react';
-import './App.css';
-import {wrapWithDevtools, connectDevtools} from 'reduce-devtools-extension'
+import React, { createContext, useContext, useReducer } from "react";
+import { wrapWithDevtools, initDevtools } from "reduce-devtools-extension/dist/index.js";
 
 const initialState = {
-  count1: 0,
-  count2: 0,
+  count: 0
 };
 
 const reducer = (state, action) => {
   switch (action.type) {
     case 'INCREMENT':
       return {
-        ...state,
-        [action.name]: state[action.name] + 1,
+        count: state.count + 1,
       };
     case 'DECREMENT':
       return {
-        ...state,
-        [action.name]: state[action.name] - 1,
+        count: state.count - 1,
       };
     default:
       return state;
@@ -38,35 +34,22 @@ const GlobalStateProvider = ({ children }) => (
   <Context.Provider value={useValue()}>{children}</Context.Provider>
 );
 
-const Counter = ({ name, dispatch }) => {
-  
+const Counter = () => {
+  const [state, dispatch] = useGlobalState();
+  initDevtools(initialState, dispatch)
   return (
     <div>
-      {name}
-      <button onClick={() => dispatch({ type: 'INCREMENT', name })}>+1</button>
-      <button onClick={() => dispatch({ type: 'DECREMENT', name })}>-1</button>
+      {state.count}
+      <button onClick={() => dispatch({ type: 'INCREMENT' })}>+1</button>
+      <button onClick={() => dispatch({ type: 'DECREMENT' })}>-1</button>
     </div>
   );
 };
 
-const Container = () => {
-    const [state, dispatch] = useGlobalState();
-  connectDevtools(dispatch, {})
-    return (
-        <>
-    <h1>Count1</h1>
-    <Counter name={state.count1} dispatch={dispatch}/>
-    <h1>Count2</h1>
-    <Counter name={state.count1} dispatch={dispatch} />
-  </>
-)};
-
-const App = () => {
-    
-    return (
+const App = () => (
   <GlobalStateProvider>
-    <Container/>
+    <Counter />
   </GlobalStateProvider>
-)};
+);
 
 export default App;
