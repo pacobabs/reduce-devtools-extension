@@ -2,9 +2,16 @@
   "name": "reduce-devtools-extension",
   "version": "1.0.0",
   "description": "Reducer Developer Tools for debugging application state changes.",
-  "main": "index.js",
+  "source": "src/index.ts",
+  "browser": "dist/index.js",
+  "module": "dist/index.modern.module.js",
+  "main": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "npm run test"
+    "dev": "microbundle watch",
+    "build": "microbundle",
+    "test": "",
+    "pub": "npm publish"
   },
   "keywords": [
     "reduce",
@@ -15,5 +22,12 @@
     "url": "https://github.com/pacobabs/reduce-devtools-extension"
   },
   "author": "pacobabs",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "microbundle": "^0.12.4"
+  },
+  "dependencies": {
+    "remotedev": "^0.2.9",
+    "remotedev-utils": "^0.1.6"
+  }
 }
