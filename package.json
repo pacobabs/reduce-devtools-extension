@@ -1,0 +1,19 @@
+{
+  "name": "reduce-devtools-extension",
+  "version": "1.0.0",
+  "description": "Reducer Developer Tools for debugging application state changes.",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "keywords": [
+    "reduce",
+    "devtools"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pacobabs/reduce-devtools-extension"
+  },
+  "author": "pacobabs",
+  "license": "MIT"
+}
