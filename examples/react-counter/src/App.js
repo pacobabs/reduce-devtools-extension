@@ -6,11 +6,11 @@ const Counter = () => {
   const state = useState();
   const dispatch = useDispatch();
   return (
-    <>
-      <span>{state.count}</span>
-      <button onClick={() => dispatch({ type: "INCREMENT" })}>+1</button>
-      <button onClick={() => dispatch({ type: "DECREMENT" })}>-1</button>
-    </>
+    <p>
+      Clicked: <span>{state.count}</span> times
+      <button onClick={() => dispatch({ type: "INCREMENT" })}>+</button>
+      <button onClick={() => dispatch({ type: "DECREMENT" })}>-</button>
+    </p>
   );
 };
 

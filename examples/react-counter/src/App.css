@@ -7,7 +7,9 @@ div#root {
 }
 
 span {
-  margin: -7px 7px 0 0;
+  display: inline-block;
+  text-align: center;
+  min-width: 1.5em;
   font-size: 150%;
   color: brown;
 }

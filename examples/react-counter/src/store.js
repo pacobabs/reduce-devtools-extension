@@ -2,9 +2,8 @@ import React, { createContext, useContext, useReducer } from "react";
 import { wrapWithDevtools, initDevtools } from "reduce-devtools-extension";
 
 const initialState = {
-    count: 0,
-  };
-  
+  count: 0,
+};
 
 const reducer = wrapWithDevtools((state, action) => {
   switch (action.type) {

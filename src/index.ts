@@ -9,6 +9,7 @@ let internalStore: any;
 export const wrapWithDevtools = (
   reducer: (store: any, action: any) => any
 ): ((store: any, action: any) => any) => (prevStore, action) => {
+  if (!devtools) throw new Error("You must init devtools before");
   if (action.internal) {
     // internal monitor reducer
     switch (action.type) {
@@ -30,7 +31,7 @@ export const wrapWithDevtools = (
     }
     const newStore = reducer(prevStore, action);
     if (!devtoolState.isPaused) {
-      devtools.send({ type: action.type, payload: action.payload }, newStore);
+      devtools.send(action, newStore);
       logAction(action, newStore);
     }
     setInternalStore(newStore);
