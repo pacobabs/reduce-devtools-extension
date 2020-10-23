@@ -11,10 +11,10 @@
     "dev": "microbundle watch",
     "build": "microbundle",
     "test": "",
-    "pub": "npm run pub:patch",
-    "pub:patch": "npm version patch --force && npm publish",
-    "pub:minor": "npm version minor--force && npm publish",
-    "pub:major": "npm version major --force && npm publish"
+    "pub": "npm run build && npm run pub:patch",
+    "pub:patch": "npm run build && npm version patch --force && npm publish",
+    "pub:minor": "npm run build && npm version minor--force && npm publish",
+    "pub:major": "npm run build && npm version major --force && npm publish"
   },
   "keywords": [
     "reduce",
