@@ -1,6 +1,6 @@
 {
   "name": "reduce-devtools-extension",
-  "version": "2.0.8",
+  "version": "2.0.9",
   "description": "Reducer Developer Tools for debugging application state changes.",
   "source": "src/index.ts",
   "main": "dist/index.js",
@@ -8,8 +8,8 @@
   "umd:main": "dist/index.umd.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "dev": "microbundle watch --external remotedev,remotedev-utils",
-    "build": "microbundle --external remotedev,remotedev-utils",
+    "dev": "microbundle watch",
+    "build": "microbundle",
     "pub": "npm run pub:patch",
     "pub:patch": "npm run build && npm version patch --force && npm publish",
     "pub:minor": "npm run build && npm version minor--force && npm publish",
@@ -27,9 +27,11 @@
   "author": "pacobabs",
   "license": "MIT",
   "devDependencies": {
+    "jsan": "^3.1.13",
     "microbundle": "^0.12.4",
-    "remotedev": "^0.2.9",
     "remotedev-utils": "^0.1.6"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@types/jsan": "^3.1.0"
+  }
 }
