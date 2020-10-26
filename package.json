@@ -1,6 +1,6 @@
 {
   "name": "reduce-devtools-extension",
-  "version": "2.0.5",
+  "version": "2.0.6",
   "description": "Reducer Developer Tools for debugging application state changes.",
   "source": "src/index.ts",
   "main": "dist/index.js",
@@ -9,7 +9,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "microbundle watch",
-    "build": "microbundle --external none",
+    "build": "microbundle --external remotedev remotedev-utils",
     "pub": "npm run pub:patch",
     "pub:patch": "npm run build && npm version patch --force && npm publish",
     "pub:minor": "npm run build && npm version minor--force && npm publish",
