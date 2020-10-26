@@ -1,4 +1,4 @@
-Reduce Devtools Extension
+Reduce Devtools Extension ![NPM](https://img.shields.io/npm/l/reduce-devtools-extension) ![npm](https://img.shields.io/npm/v/reduce-devtools-extension?style=flat-square)
 =========
 
 Monitoring flux app's actions along with states to a remote monitor. Meant to be used even in production with any reducer pattern.
