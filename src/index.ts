@@ -1,5 +1,13 @@
-import { extractState, connectViaExtension } from 'remotedev'
+import { parse } from 'jsan'
 import { evalMethod } from 'remotedev-utils'
+
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION__: {
+      connect: (options: any) => void
+    }
+  }
+}
 
 let devtools: any
 let devtoolState: any
@@ -9,6 +17,7 @@ export const wrapWithDevtools = (reducer: (store: any, action: any) => any): ((s
   prevStore,
   action
 ) => {
+  if (!window.__REDUX_DEVTOOLS_EXTENSION__) return reducer(prevStore, action)
   if (!devtools) throw new Error('You must init devtools before')
   if (action.internal) {
     // internal monitor reducer
@@ -44,10 +53,10 @@ export const initDevtools = (
   dispatch: ({ type: string, payload: any }: any) => void,
   options?: any
 ) => {
-  if (devtools) return
+  if (devtools || !window.__REDUX_DEVTOOLS_EXTENSION__) return
   if (!dispatch) throw new Error('You must provide a dispatch function')
   const { autoPause = false, shouldStartLocked = false } = options || {}
-  devtools = connectViaExtension(options)
+  devtools = window.__REDUX_DEVTOOLS_EXTENSION__.connect(options)
   devtools.init(initialStore)
   setTimeout(() => {
     devtools.send(null, initDevtoolState(initialStore, { autoPause, shouldStartLocked }))
@@ -248,4 +257,10 @@ const logAction = (action: any, newStore: any) => {
   devtoolState.stagedActionIds.push(currentActionId)
   devtoolState.nextActionId++
   devtools.send(null, devtoolState)
+}
+
+const extractState = (message: any) => {
+  if (!message || !message.state) return undefined
+  if (typeof message.state === 'string') return parse(message.state)
+  return message.state
 }
