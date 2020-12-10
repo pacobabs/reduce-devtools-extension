@@ -17,7 +17,7 @@ export const wrapWithDevtools = (reducer: (store: any, action: any) => any): ((s
   prevStore,
   action
 ) => {
-  if(!window) return
+  if(typeof window === `undefined`) return
   if (!window.__REDUX_DEVTOOLS_EXTENSION__) return reducer(prevStore, action)
   if (!devtools) throw new Error('You must init devtools before')
   if (action.internal) {
@@ -54,7 +54,7 @@ export const initDevtools = (
   dispatch: ({ type: string, payload: any }: any) => void,
   options?: any
 ) => {
-  if(!window) return
+  if(typeof window === `undefined`) return
   if (devtools || !window.__REDUX_DEVTOOLS_EXTENSION__) return
   if (!dispatch) throw new Error('You must provide a dispatch function')
   const { autoPause = false, shouldStartLocked = false } = options || {}
