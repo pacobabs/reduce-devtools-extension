@@ -51,11 +51,10 @@ export const wrapWithDevtools = (reducer: (store: any, action: any) => any): ((s
 
 export const initDevtools = (
   initialStore: any,
-  dispatch: ({ type: string, payload: any }: any) => void,
+  dispatch: ({ type, payload, internal }: {type: string, payload: any, internal: boolean}) => void,
   options?: any
 ) => {
-  if(typeof window === `undefined`) return
-  if (devtools || !window.__REDUX_DEVTOOLS_EXTENSION__) return
+  if (typeof window === `undefined` || devtools || !window.__REDUX_DEVTOOLS_EXTENSION__) return
   if (!dispatch) throw new Error('You must provide a dispatch function')
   const { autoPause = false, shouldStartLocked = false } = options || {}
   devtools = window.__REDUX_DEVTOOLS_EXTENSION__.connect(options)
@@ -81,7 +80,7 @@ export const initDevtools = (
               internal: true
             })
       } catch (e) {
-        devtools.error(e.message)
+        devtools.error(e)
       }
     } else if (message.type === 'DISPATCH') {
       const payload = extractState(message)
